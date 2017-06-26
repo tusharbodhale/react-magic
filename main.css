@@ -1,0 +1,17 @@
+.animate-panel{
+	width:100%;
+	height:300px;
+}
+.code-panel{
+	height:300px !important;
+}
+.lib-panel{
+	height:200px !important;
+}
+.run-button{
+	margin-top:20px;
+}
+.avatar-icons svg{
+	height:64px !important;
+	width:64px !important;
+}	
