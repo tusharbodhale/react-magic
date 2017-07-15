@@ -65,12 +65,58 @@ function avatar(name, size){
       }(), 1000/40);
   }
 
+  obj.moveDown = function (destinationY){
+    // var
+    //   myX = sourceX,
+    //   myY = sourcey;
+      
+      obj = this;
+      var interval = setInterval(function() {
+        var x = obj.sourceX, y = obj.sourceY, down =  obj.sourceY + destinationY;
+        
+        return function () {
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          ctx.drawImage(img, x, y);
+          
+          y += 1;
+          
+          if ( y > down || y > ctx.canvas.height) {
+            clearInterval(interval);
+          }
+        };
+      }(), 1000/40);
+  }
+
+  obj.moveUp = function (destinationY){
+    // var
+    //   myX = sourceX,
+    //   myY = sourcey;
+      
+      obj = this;
+      var interval = setInterval(function() {
+        var x = obj.sourceX, y = obj.sourceY, up =  obj.sourceY - destinationY;
+        
+        return function () {
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          ctx.drawImage(img, x, y);
+          
+          y -= 1;
+          
+          if ( y < up || y < 0) {
+            clearInterval(interval);
+          }
+        };
+      }(), 1000/40);
+  }
   return obj;
 }
 
 //code for user
 var myAvatar = avatar("green_apple", 300);
-myAvatar.appear(100,50);
-myAvatar.moveRight(50);
+myAvatar.appear(100,100);
+// myAvatar.moveRight(50);
+// myAvatar.moveLeft(50);
+// myAvatar.moveUp(50);
+myAvatar.moveDown(50);
 
 });
