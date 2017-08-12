@@ -119,7 +119,12 @@ bootstrap.min.css">
       /*Main Component*/
       var Main = React.createClass({
         getInitialState: function() {
-          return {text: ""};
+          return {text: `//code for user
+            var myAvatar = avatar("grasshopper", 150);
+            myAvatar.appear(100,100);
+            myAvatar.moveRight(100).then(function(){
+              myAvatar.bounce(50);
+            });`};
         },
         handleClick: function(newValue) {
           this.setState({ text: eval(newValue) });

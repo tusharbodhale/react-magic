@@ -1,12 +1,13 @@
 $( document ).ready(function() {
-function avatar(name, size){
+this.avatar=function(name, size){
   var obj = {},
     avatarName = name,
     avatarSize = size,
     img = new Image,
     ctx = document.getElementById('myCanvas').getContext('2d'),
     imageLib = {
-      green_apple: 'assets/images/apple-dark-green.svg'
+      green_apple: 'assets/images/apple-dark-green.svg',
+      grasshopper: 'assets/images/grasshopper.png'
     }
     img.src = imageLib[name];
   
@@ -21,11 +22,12 @@ function avatar(name, size){
     this.canvasWidth = ctx.canvas.width;
     this.canvasHeight = ctx.canvas.height;
     img.onload = function(){
-      ctx.drawImage(img, sourceX, sourceY);
+      ctx.drawImage(img, sourceX, sourceY, this.width, this.height);
     }
   }
   //TO move apple
   obj.moveRight = function (destinationX){
+    return new Promise((resolve, reject) => {
     // var
     //   myX = sourceX,
     //   myY = sourcey;
@@ -36,15 +38,19 @@ function avatar(name, size){
         
         return function () {
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, x, y, obj.width, obj.height);
           
           x += 1;
           
           if ( x > right || x > ctx.canvas.width) {
+            resolve();
+            obj.sourceX=x;
+            obj.sourceY=y;
             clearInterval(interval);
           }
         };
       }(), 1000/40);
+    })
   }
 
   obj.moveLeft = function (destinationX){
@@ -58,7 +64,7 @@ function avatar(name, size){
         
         return function () {
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, x, y, obj.width, obj.height);
           
           x -= 1;
           
@@ -80,7 +86,7 @@ function avatar(name, size){
         
         return function () {
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, x, y, obj.width, obj.height);
           
           y += 1;
           
@@ -102,7 +108,7 @@ function avatar(name, size){
         
         return function () {
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, x, y, obj.width, obj.height);
           
           y -= 1;
           
@@ -124,7 +130,7 @@ function avatar(name, size){
         
         return function () {
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, x, y, obj.width, obj.height);
           
           y -= 1;
           
@@ -150,31 +156,38 @@ function avatar(name, size){
         return function () {
           //obj.moveUp(destinationY);
           ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          ctx.drawImage(img, x, y);
+          ctx.drawImage(img, x, y, obj.width, obj.height);
           
           y += vy;
           // Ohh! The ball is moving!
           // Lets add some acceleration
           vy += gravity;
           //Perfect! Now, lets make it rebound when it touches the floor
-          if( y + (obj.height/2) > obj.canvasHeight ) {
+          if( y > obj.sourceY || y > obj.canvasHeight ) {
             // First, reposition the ball on top of the floor and then bounce it!
             y = obj.canvasHeight - obj.height/2;
             vy *=-bounceFactor;
-          
+            clearInterval(interval);
           }
         };
       }(), 1000/40);
   }
+
+  obj.click = function (){
+
+  }
   return obj;
 }
 
-//code for user
-var myAvatar = avatar("green_apple", 300);
-myAvatar.appear(100,100);
-// myAvatar.moveRight(50);
-// myAvatar.moveLeft(50);
-// myAvatar.moveUp(50);
-myAvatar.bounce(50);
+// //code for user
+// var myAvatar = avatar("grasshopper", 100);
+// myAvatar.appear(100,100);
+// // myAvatar.moveRight(50);
+// // myAvatar.moveLeft(50);
+// // myAvatar.moveUp(50);
+// myAvatar.moveRight(100).then(function(){
+//   myAvatar.bounce(50);
+// });
+avatar=this.avatar;
 
 });
