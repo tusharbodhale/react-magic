@@ -11,7 +11,13 @@
 .run-button{
 	margin-top:20px;
 }
-.avatar-icons svg{
-	height:64px !important;
-	width:64px !important;
-}	
+.avatar-icons .icon{	
+	display: inline-block;
+	text-align: center;
+	padding: 0 3px;
+}
+.avatar-icons .icon object{
+	height:64px ;
+	width:64px ;
+	display: block;
+}
