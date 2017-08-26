@@ -21,3 +21,34 @@
 	width:64px ;
 	display: block;
 }
+#canvas-world{
+	width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.avatar-icons .icon .single-world{
+	height:64px ;
+	width:64px ;
+	border:1px solid #3E3B3B;
+	display: block;
+}
+
+.avatar-icons .icon .single-world.black, #canvas-world.black{
+	background-color: black;
+}
+.avatar-icons .icon .single-world.white, #canvas-world.white{
+	background-color: white;
+}
+.avatar-icons .icon .single-world.red, #canvas-world.red{
+	background-color: red;
+}
+.avatar-icons .icon .single-world.green, #canvas-world.green{
+	background-color: green;
+}
+.avatar-icons .icon .single-world.blue, #canvas-world.blue{
+	background-color: blue;
+}
+.avatar-icons .icon .single-world.galaxy, #canvas-world.galaxy{
+	background-image: url('../images/galaxy.gif');
+}
